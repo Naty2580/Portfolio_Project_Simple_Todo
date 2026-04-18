@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+/* Enable manual class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background-light: #F7F7F5;
+  --color-background-dark: #121212;
+
+  --color-surface-light: #F0EFEA;
+  --color-surface-dark: #1E1E1E;
+
+  --color-text-light: #1A1A1A;
+  --color-text-dark: #EAEAEA;
+
+  --color-accent: #849C8A;
+
+  --font-serif: "Playfair Display", serif;
+  --font-sans: Inter, sans-serif;
+
+  --tracking-title: -0.02em;
+  --tracking-meta: 0.1em;
+}
+
+@layer base {
+  body {
+    @apply bg-background-light text-text-light font-sans transition-colors duration-500 ease-in-out;
+  }
+  
+  /* Apply dark background and text automatically to the body when dark mode is active */
+  .dark body {
+    @apply bg-background-dark text-text-dark;
+  }
+}
