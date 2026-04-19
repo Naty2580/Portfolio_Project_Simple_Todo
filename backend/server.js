@@ -23,8 +23,14 @@ app.use(helmet());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 150 }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: process.env.FRONTEND_URL || "https://portfolio-project-simple-todo.vercel.app/" , credentials: true }));
 
+const frontendUrl = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : 'http://localhost:5173';
+app.use(cors({ 
+  origin: frontendUrl, 
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.post('/api/auth/register',
   body('username').isLength({ min: 3 }),
   body('password').isLength({ min: 6 }),
